@@ -1,0 +1,66 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+                <div class="card">
+                        <div class="card-header alert-primary">
+                             Upload CSV Files Here
+                        </div>
+                        <div class="card-body">
+                          <h5 class="card-title"></h5>
+                          <input type="file" #fileImportInput name="File Upload" style="text-align:center" id="txtFileUpload" (change)="fileChangeListener($event)" accept=".csv" class="form-control" />
+                        </div>
+                        <button *ngIf="fileImportInput.value" (click)="fileReset()" class="btn btn-danger">Reset</button>
+                </div>
+                
+        </div>
+    </div><br><br>
+<div class="col-md-12" *ngIf="fileImportInput.value">
+   <div class="card-header alert-success">
+                    Preview
+  </div>
+<input type="text" placeholder="Search by Name, Order Number or Order Date" class="form-control" [(ngModel)]="query">
+    <table class="table table-striped" id="customers">
+      <tr>
+        <th>Sl.No:</th>
+        <th>Name</th>
+        <th>Order Number</th>
+        <th>Order Date</th>
+        <th>Total Quantity</th>
+        <th>Amount</th>
+        <th>Shipping Address</th>
+        <th>Billing Address</th>
+      </tr>
+    
+    <tbody>
+      <tr *ngFor="let csvData of csvRecords | search:'name,orderDate,orderNumber':query ;let i = index;">
+
+            <td>{{i+1}}</td>
+        <td>
+          <span>{{csvData.name}}</span>
+        </td>
+        <td>
+          <span>{{csvData.orderNumber}}</span>
+        </td>
+        <td>
+          <span>{{csvData.orderDate}}</span>
+        </td>
+        <td>
+          <span>{{csvData.totalQuantity}}</span>
+        </td>
+        <td>
+          <span>{{csvData.amount}}</span>
+        </td>
+        <td>
+          <span>{{csvData.shippingAddress}}</span>
+        </td>
+        <td>
+          <span>{{csvData.billingAddress}}</span>
+        </td>
+
+      </tr>
+    </tbody>
+  </table>
+    </div>
+</div>
+
+
